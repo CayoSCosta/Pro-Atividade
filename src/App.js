@@ -22,23 +22,21 @@ let initialState = [
 
 function App() {
   const [atividades, setAtividades] = useState(initialState)
-  let lastIndex = initialState.length - 1
-  let lastId = initialState[lastIndex].id
-  console.log(lastId)
+  //jeito antigo de somar +1 id
+  // let lastIndex = initialState.length - 1
+  // let lastId = initialState[lastIndex].id
   // document.getElementById('id').innerText = lastId
 
   function addAtividade(e) {
     e.preventDefault()
 
-    let lastIndex = atividades.length - 1
-    let lastId = atividades[lastIndex].id
-    let newId = lastId + 1
-
-    console.log('O novo ID é: ' + newId)
+      //jeito antigo de somar +1 id
+    // let lastIndex = atividades.length - 1
+    // let lastId = atividades[lastIndex].id
+    // let newId = lastId + 1
 
     const atividade = {
-      id: (document.getElementById('id').value = newId),
-      //id: newId,
+      id: document.getElementById('id').value,
       prioridade: document.getElementById('prioridade').value,
       titulo: document.getElementById('titulo').value,
       descricao: document.getElementById('descricao').value
@@ -73,6 +71,11 @@ function App() {
     }
   }
 
+  function deletarAtividades(id){
+    const filtro = atividades.filter(ativ => ativ.id !== id)
+    setAtividades([...filtro])
+  }
+
   return (
     <>
       <form className="row g-3">
@@ -83,7 +86,7 @@ function App() {
             type="text"
             className="form-control"
             disabled={true}
-            value={lastId}
+            value={Math.max.apply(Math, atividades.map((item) => item.id) ) +1}
           />
         </div>
         <div className="col-md-6">
@@ -150,7 +153,7 @@ function App() {
                   <i className="fas fa-pen me-2"></i>
                   Editar
                 </button>
-                <button className="btn btn-sm btn-outline-danger">
+                <button className="btn btn-sm btn-outline-danger" onClick={() => deletarAtividades(ativ.id)}>
                   <i className="fas fa-trash me-2"></i>
                   Deletar
                 </button>
