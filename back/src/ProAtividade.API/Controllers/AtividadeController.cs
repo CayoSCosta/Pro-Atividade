@@ -12,9 +12,9 @@ namespace ProAtividade.API.Controllers
   public class AtividadeController : ControllerBase
   {
     public IEnumerable<Atividade> Atividades = new List<Atividade>(){
-        new Atividade("1"),
-        new Atividade("2"),
-        new Atividade("3")
+        new Atividade(1),
+        new Atividade(2),
+        new Atividade(3)
     };
     public AtividadeController()
     {
@@ -28,7 +28,7 @@ namespace ProAtividade.API.Controllers
     }
 
     [HttpGet("{id}")]
-    public Atividade GetByID(string id)
+    public Atividade GetByID(int id)
     {
       return Atividades.FirstOrDefault(ativ => ativ.Id == id);
     }
@@ -40,13 +40,13 @@ namespace ProAtividade.API.Controllers
     }
 
     [HttpPut("{id}")]
-    public string Put(string id)
+    public string Put(int id)
     {
       return "Esse é o método Edit";
     }
 
     [HttpDelete("{id}")]
-    public string Delete(string id)
+    public string Delete(int id)
     {
       return "Esse é o método Delete";
     }
