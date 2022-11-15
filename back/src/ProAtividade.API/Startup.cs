@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProAtividade.API.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace ProAtividade.API
 {
@@ -31,7 +32,12 @@ namespace ProAtividade.API
       services.AddDbContext<DataContext>(
         options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
       );
-      services.AddControllers();
+      services.AddControllers()
+      .AddJsonOptions(options =>
+      {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+      });
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProAtividade.API", Version = "v1" });
