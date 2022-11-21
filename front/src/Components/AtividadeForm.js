@@ -9,13 +9,12 @@ const atividadeInicial = {
 
 export default function AtividadeForm(props) {
   const [atividade, setAtividade] = useState(atividadeAtual())
-  console.log(atividade.id)
+
   useEffect(() => {
     if (props.ativSelecionada.id !== 0) {
       setAtividade(props.ativSelecionada)
     }
   }, [props.ativSelecionada])
-
   const inputTextHandler = e => {
     const { name, value } = e.target
     setAtividade({ ...atividade, [name]: value })
@@ -25,7 +24,7 @@ export default function AtividadeForm(props) {
     e.preventDefault()
 
     if (props.ativSelecionada.id !== 0) {
-      props.atualizarAtividade(atividade)
+      props.editarAtividades(atividade)
     } else {
       props.addAtividade(atividade)
     }
@@ -35,9 +34,7 @@ export default function AtividadeForm(props) {
 
   const handleCancelar = e => {
     e.preventDefault()
-
-    // cancelarAtividade()
-
+    props.cancelarAtividade()
     setAtividade(atividadeInicial)
   }
 
@@ -51,7 +48,6 @@ export default function AtividadeForm(props) {
 
   return (
     <>
-      <h1>Atividade {atividade.id !== 0 ? atividade.id : ''}</h1>
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="col-md-6">
           <label className="form-label">Título:</label>
@@ -73,10 +69,10 @@ export default function AtividadeForm(props) {
             onChange={inputTextHandler}
             className="form-select"
           >
-            <option defaultValue="0">Selecionar...</option>
-            <option value="1">Baixa</option>
-            <option value="2">Normal</option>
-            <option value="3">Alta</option>
+            <option defaultValue="NaoDefinido">Selecionar...</option>
+            <option value="Baixa">Baixa</option>
+            <option value="Normal">Normal</option>
+            <option value="Alta">Alta</option>
           </select>
         </div>
         <div className="col-md-12">
@@ -96,7 +92,7 @@ export default function AtividadeForm(props) {
           {atividade.id === 0 ? (
             <button className="btn btn-success" type="submit">
               <i className="fas fa-plus me-2"></i>
-              Atividade
+              Salvar
             </button>
           ) : (
             <>
