@@ -60,7 +60,7 @@ namespace ProAtividade.Domain.Services
       if (model.DataConclusao != null)
         throw new Exception("Não se pode alterar atividade ja concluída.");
 
-      if (await _atividadeRepo.PegarPorIdAsync(model.Id) == null)
+      if (await _atividadeRepo.PegarPorIdAsync(model.Id) != null)
       {
         _atividadeRepo.Editar(model);
         if (await _atividadeRepo.SalvarMudancasAsync())
@@ -86,9 +86,20 @@ namespace ProAtividade.Domain.Services
       }
     }
 
-    public Task<Atividade> PegarTodasAtividadesAsync()
+    public async Task<Atividade[]> PegarTodasAtividadesAsync()
     {
-      throw new NotImplementedException();
+      try
+      {
+        var atividades = await _atividadeRepo.PegarTodasAsync();
+        if (atividades == null) return null;
+
+        return atividades;
+      }
+      catch (System.Exception ex)
+      {
+
+        throw new Exception(ex.Message);
+      }
     }
   }
 }

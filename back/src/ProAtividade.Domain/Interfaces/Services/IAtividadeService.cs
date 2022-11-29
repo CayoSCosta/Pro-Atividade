@@ -12,7 +12,7 @@ namespace ProAtividade.Domain.Interfaces.Services
     Task<Atividade> EditarAtividade(Atividade model);
     Task<bool> DeletarAtividade(int atividadeId);
     Task<bool> ConcluirAtividade(Atividade model);
-    Task<Atividade> PegarTodasAtividadesAsync();
+    Task<Atividade[]> PegarTodasAtividadesAsync();
     Task<Atividade> PegarAtividadePorIdAsync(int atividadeId);
   }
 }

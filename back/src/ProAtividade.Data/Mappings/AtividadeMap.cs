@@ -15,6 +15,7 @@ namespace ProAtividade.Data.Mappings
 
       builder.Property(a => a.Descricao)
           .HasColumnType("varchar(255)");
+
     }
   }
 }
